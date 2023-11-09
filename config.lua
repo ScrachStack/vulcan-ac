@@ -63,6 +63,14 @@ Config = {
         ACEPermission = "admin.antiResourceTamper.bypass"
     },
 
+     AntiEntityTamper = {
+        Enabled = true,
+        Message = "Entity tampering detected",
+        Label = "Entity Tamper Detection",
+        ACEPermission = "admin.Entity.bypass"
+    },
+
+
     BlacklistedMenuTextures = {
         Enabled = true,
         Textures = {
