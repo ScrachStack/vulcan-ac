@@ -67,7 +67,9 @@ Config = {
         Enabled = true,
         Message = "Entity tampering detected",
         Label = "Entity Tamper Detection",
-        ACEPermission = "admin.Entity.bypass"
+        ACEPermission = "admin.Entity.bypass",
+        EntityCreation_Limit = 10,
+        ResetTime = 60000 -- Timer before entity creation limit resets.
     },
 
 
@@ -81,7 +83,19 @@ Config = {
         Message = "Usage of blacklisted menu textures is prohibited",
         Label = "Texture Prohibition",
         ACEPermission = "admin.blacklistedTextures.bypass"
-    }
+    },
 
-   
+
+    BlacklistedEvents = {
+    Enabled = true,
+    Events = {
+        { Name = "vrp_slotmachLRACine:server:2", Label = "Anti VRP Event" },
+        { Name = "bank:depLRACositt",  Label = "Used in lua menus" },
+        { Name = "Banca:dLRACeposit",  Label = "Whateverhere" },
+        -- Add more 
+    },
+    Message = "Blacklisted Event Detected",
+    Label = "Event Blacklisting",
+    ACEPermission = "admin.events.bypass",
+    } 
 }
