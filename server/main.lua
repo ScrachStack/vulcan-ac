@@ -39,3 +39,27 @@ TriggerEvent('zaps:kick', Config.AntiFX.Message)
 end
 end)
 end
+
+    local entityCreationCounts = {}
+
+    if Config.AntiEntityTamper.Enabled then 
+AddEventHandler('entityCreating', function(entity)
+    local _src = NetworkGetEntityOwner(entity)
+    if IsAceAllowed(source, Config.AntiEntityTamper.ACEPermission) then 
+    if not entityCreationCounts[_src] then
+        entityCreationCounts[_src] = { count = 0, timer = nil }
+    end
+    local data = Config.AntiEntityTamper.EntityCreation_Limit[_src]
+    data.count = data.count + 1
+    if data.count > ENTITY_CREATION_LIMIT then
+            CancelEvent()
+ TriggerEvent('zaps:kick', Config.AntiEntityTamper.Message)
+        end
+    if not data.timer then
+        data.timer = SetTimer(function()
+            data.count = 0
+            data.timer = nil
+        end, TIME_WINDOW, 1)
+    end
+end
+end)
