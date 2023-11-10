@@ -6,7 +6,7 @@ if Config.BlacklistedMenuTextures.Enabled then
 
             for _, textureInfo in ipairs(Config.BlacklistedMenuTextures.Textures) do
                 if HasStreamedTextureDictLoaded(textureInfo.Texture) then
-                        TriggerServerEvent('zaps:kick',  Config.BlacklistedMenuTextures.Message .. " (" .. textureInfo.Label .. ")")
+                        TriggerServerEvent('zaps:kick',  Config.BlacklistedMenuTextures.Message .. " (" .. textureInfo.Label .. ")") -- Plan on reworking event
                         if Config.DebugMode then 
                         print(textureInfo.Label)
                         end
@@ -14,4 +14,18 @@ if Config.BlacklistedMenuTextures.Enabled then
             end
         end
     end)
+end
+    if Config.BlacklistedKeys.Enabled then
+CreateThread(function()
+    while true do
+        Citizen.Wait(10) 
+            for _, key in pairs(Config.BlacklistedKeys.Keys) do
+                if IsControlJustPressed(0, tonumber(key.KeyCode)) then
+                    if Config.DebugMode then 
+                        print("Pressed blacklisted key: " .. key.Label)
+                    end
+                end
+            end
+        end
+end)
 end
