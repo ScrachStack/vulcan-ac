@@ -115,5 +115,10 @@ Config = {
         Message = "Fake chat messages are not allowed",
         ACEPermission = "admin.fakeChat.bypass"
     },
-
+    SuperJump = {
+        Enabled = true,
+        LengthThreshold = 15, 
+        Message = "Super jump detected",  
+        ACEPermission = "admin.explosions.bypass",
+    }
 }
