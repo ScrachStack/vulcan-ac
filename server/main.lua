@@ -63,6 +63,7 @@ AddEventHandler('entityCreating', function(entity)
     end
 end
 end)
+end
 if Config.BlacklistedEvents.Enabled then
     for _, event in pairs(Config.BlacklistedEvents.Events) do
         if event.type == 'server' then
