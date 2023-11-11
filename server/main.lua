@@ -34,6 +34,7 @@ if IsAceAllowed(sender, Config.AntiFX.ACEPermission) then
         if fxCounts[sender] > Config.AntiFX.limit then
             CancelEvent()
 TriggerEvent('zaps:kick', Config.AntiFX.Message)
+TriggerEvent('logKickToDiscordEvent', Config.AntiFX.Message)
         end
     end
 end
@@ -54,6 +55,7 @@ AddEventHandler('entityCreating', function(entity)
     if data.count > ENTITY_CREATION_LIMIT then
             CancelEvent()
  TriggerEvent('zaps:kick', Config.AntiEntityTamper.Message)
+TriggerEvent('logKickToDiscordEvent', Config.AntiEntityTamper.Message)
         end
     if not data.timer then
         data.timer = SetTimer(function()
@@ -71,6 +73,7 @@ if Config.BlacklistedEvents.Enabled then
                 if not hasBypassPermission(source, Config.BlacklistedEvents.ACEPermission) then
                     CancelEvent()
                     TriggerEvent('zaps:kick', Config.BlacklistedEvents.Message)
+                    TriggerEvent('logKickToDiscordEvent', Config.BlacklistedEvents.Message)
                 end
             end)
         end
@@ -87,11 +90,13 @@ end
     if isBlacklisted(exp.explosionType) then
         CancelEvent()
         TriggerEvent('zaps:kick', "Blocked Explosion Type: "..exp.explosionType)
+        TriggerEvent('logKickToDiscordEvent', GetPlayerName(source), "Blocked Explosion Type: "..exp.explosionType)
         return
     end
     explosionsSpawned[sender] = (explosionsSpawned[sender] or 0) + 1
     if explosionsSpawned[sender] > Config.ExplosionEvent.MassExplosionsLimit then
         TriggerEvent('zaps:kick', "Mass explosions detected: "..explosionsSpawned[sender])
+        TriggerEvent('logKickToDiscordEvent', GetPlayerName(source), "Mass explosions detected: "..explosionsSpawned[sender])
         CancelEvent()
         return
     end
@@ -104,6 +109,7 @@ end)
                 CancelEvent()
                 TriggerEvent('zaps:kick', "Tried to say a blacklisted word: " .. word, "Full Message", message)
                 TriggerClientEvent('chat:clear', -1)
+                TriggerEvent('logKickToDiscordEvent', GetPlayerName(source), "Tried to say a blacklisted word: " .. word, "Full Message", message)
                 return
             end
         end
