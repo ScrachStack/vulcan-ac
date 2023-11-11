@@ -80,10 +80,10 @@ AddEventHandler("explosionEvent", function(sender, exp)
     if not Config.ExplosionEvent.Enabled or exp.damageScale == 0.0 then
         return
     end
-    local function isBlacklisted(expType)
-        local blacklistedTypes = {1, 2, 3, 4, 5, 25, 32, 33, 35, 36, 37, 38}
-        return inTable(blacklistedTypes, expType) ~= false
-    end
+ local function isBlacklisted(expType)
+    local blacklistedTypes = Config.ExplosionEvent.RestrictCertainTypes
+    return inTable(blacklistedTypes, expType) ~= false
+end
     if isBlacklisted(exp.explosionType) then
         CancelEvent()
         TriggerEvent('zaps:kick', "Blocked Explosion Type: "..exp.explosionType)
