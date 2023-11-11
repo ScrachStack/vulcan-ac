@@ -1,7 +1,7 @@
 RegisterNetEvent('zaps:kick')
 AddEventHandler('zaps:kick', function(reason)
     DropPlayer(source, reason) 
-    logKickToDiscord(GetPlayerName(source), reason)
+   -- logKickToDiscord(GetPlayerName(source), reason)
 end)
 function logKickToDiscord(playerName, kickReason)
     local discordWebhookUrl = GetConvar("vac:webhook", "")
