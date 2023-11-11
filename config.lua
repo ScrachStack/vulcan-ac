@@ -102,4 +102,18 @@ Config = {
     RestrictCertainTypes = {
             1, 2, 3, 4, 5, 25, 32, 33, 35, 36, 37, 38
     },
+        BlacklistedWords = {
+        Enabled = true,
+        Words = {
+            "faggot", "nigger", "nig", "eulen", "kys", "griefa", "redengine", "gay", "queer", "fag" -- Add blacklisted words here
+        },
+        Message = "Usage of blacklisted words is prohibited",
+        ACEPermission = "admin.blacklistedWords.bypass"
+    },
+    AntiFakeChatMessages = {
+        Enabled = true,
+        Message = "Fake chat messages are not allowed",
+        ACEPermission = "admin.fakeChat.bypass"
+    },
+
 }
