@@ -17,6 +17,9 @@ git clone https://github.com/Zaps6000/vulcan
 
 3. Install and run Vulcan-AC on your FiveM server.
 
+4. Install screenshot-basic
+Add To server.Cfg
+5.  @vulcan-ac/webhook.cfg
 ## License
 
 Vulcan-AC is open-source software released under the [GNU General Public License v3.0](https://github.com/Zaps6000/vulcan/blob/main/LICENSE). You are free to use, modify, and distribute this software in compliance with the terms of the license.
