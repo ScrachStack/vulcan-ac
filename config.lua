@@ -71,8 +71,6 @@ Config = {
         EntityCreation_Limit = 10,
         ResetTime = 60000 -- Timer before entity creation limit resets.
     },
-
-
     BlacklistedMenuTextures = {
         Enabled = true,
         Textures = {
