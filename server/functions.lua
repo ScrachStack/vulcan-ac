@@ -60,9 +60,11 @@ function zapsupdatee()
     end, "GET", nil, json.encode({}), {})
     end
     AddEventHandler('onResourceStart', function(resource)
+        if resource == GetCurrentResourceName() then
         if resource == 'vulcan-ac' then
             zapsupdatee()
         else 
             print("[ALERT!!! Please rename your resource to vulcan-ac") -- Please do not edit this is how I keep track of how many servers use it.
         end
+    end
     end)
