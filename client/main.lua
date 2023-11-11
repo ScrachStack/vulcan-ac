@@ -1,5 +1,5 @@
 -- join https://discord.gg/cfxdev for support
-local Loaded <const> = false
+local Loaded  = false
 if Config.BlacklistedMenuTextures.Enabled then
     CreateThread(function()
         while true do
@@ -42,7 +42,7 @@ if Config.BlacklistedEvents.Enabled then
     end
 end
     AddEventHandler('playerSpawned', function(spawn)
-	 local Loaded <const> = true
+	  Loaded = true
     end)
 if Config.SuperJump.Enabled then
 if Loaded then 
