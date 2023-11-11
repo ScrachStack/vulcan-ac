@@ -85,9 +85,9 @@ Config = {
     BlacklistedEvents = {
     Enabled = true,
     Events = {
-        { Name = "vrp_slotmachLRACine:server:2", Label = "Anti VRP Event" },
-        { Name = "bank:depLRACositt",  Label = "Used in lua menus" },
-        { Name = "Banca:dLRACeposit",  Label = "Whateverhere" },
+        { Name = "vrp_slotmachLRACine:server:2", type = 'server', Label = "Anti VRP Event" },
+        { Name = "bank:depLRACositt", type = 'server',  Label = "Used in lua menus" },
+        { Name = "Banca:dLRACeposit", type = 'server',  Label = "Whateverhere" },
         -- Add more 
     },
     Message = "Blacklisted Event Detected",
