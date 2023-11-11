@@ -41,14 +41,6 @@ Config = {
         Label = "God Mode Prohibition",
         ACEPermission = "admin.antiGodMode.bypass"
     },
-
-    AntiSuperJump = {
-        Enabled = true,
-        Message = "Super Jump is not allowed",
-        Label = "Super Jump Prohibition",
-        ACEPermission = "admin.antiSuperJump.bypass"
-    },
-
     AntiNoClip = {
         Enabled = true,
         Message = "NoClip is not allowed",
