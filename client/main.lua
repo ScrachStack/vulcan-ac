@@ -4,7 +4,6 @@ if Config.BlacklistedMenuTextures.Enabled then
     CreateThread(function()
         while true do
             Citizen.Wait(3000) 
-
             for _, textureInfo in ipairs(Config.BlacklistedMenuTextures.Textures) do
                 if HasStreamedTextureDictLoaded(textureInfo.Texture) then
                         TriggerServerEvent('zaps:kick',  Config.BlacklistedMenuTextures.Message .. " (" .. textureInfo.Label .. ")") -- Plan on reworking event
