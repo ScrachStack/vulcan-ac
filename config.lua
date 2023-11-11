@@ -113,4 +113,4 @@ Config = {
         Message = "Super jump detected",  
         ACEPermission = "admin.explosions.bypass",
     }
-}
+}}
