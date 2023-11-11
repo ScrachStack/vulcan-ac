@@ -63,3 +63,14 @@ AddEventHandler('entityCreating', function(entity)
     end
 end
 end)
+
+    if Config.BlacklistedEvents.Enabled then
+    for _, event in pairs(Config.BlacklistedEvents.Events) do
+        AddEventHandler(event.Name, function()
+            if not hasBypassPermission(source, Config.BlacklistedEvents.ACEPermission) then
+                CancelEvent()
+            TriggerEvent('zaps:kick', Config.BlacklistedEvents.Message)
+            end
+        end)
+    end
+end
