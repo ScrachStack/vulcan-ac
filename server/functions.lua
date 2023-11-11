@@ -5,7 +5,7 @@ AddEventHandler('zaps:kick', function(reason)
 end)
 function logKickToDiscord(playerName, kickReason)
     local discordWebhookUrl = GetConvar("vac:webhook", "")
-    if discordWebhookUrl == "" or == discordWebhookUrl "https://discord.com/api/webhooks/" then
+    if discordWebhookUrl == "" or discordWebhookUrl == "https://discord.com/api/webhooks/" then
         print("[VulcanAC]: Edit webhook.cfg Or Add this to your ccfg @vulcan-ac/webhook.cfg")
         return
     end
