@@ -4,12 +4,12 @@
 
 
 ## Usage
-(Make sure you have oxmysql installed!)
+
 To get started with Vulcan-AC, follow these simple steps:
 
-1. Clone this repository, Run the Insert.SQL File.:
+1. Clone this repository
 ```
-git clone https://github.com/Zaps6000/vulcan
+git clone https://github.com/Zaps6000/vulcan-ac
 
 ```
 
