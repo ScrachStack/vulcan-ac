@@ -84,8 +84,6 @@ Config = {
         Label = "Texture Prohibition",
         ACEPermission = "admin.blacklistedTextures.bypass"
     },
-
-
     BlacklistedEvents = {
     Enabled = true,
     Events = {
@@ -97,5 +95,13 @@ Config = {
     Message = "Blacklisted Event Detected",
     Label = "Event Blacklisting",
     ACEPermission = "admin.events.bypass",
-    } 
+    },
+    ExplosionEvent = {
+    Enabled = true,
+    Message = "Unauthorized explosion detected",
+    Label = "Explosion Monitoring",
+    ACEPermission = "admin.explosions.bypass",
+    RestrictCertainTypes = {
+            1, 2, 3, 4, 5, 25, 32, 33, 35, 36, 37, 38
+    },
 }
