@@ -96,3 +96,23 @@ end
     end
     CancelEvent()
 end)
+    AddEventHandler("chatMessage", function(source, name, message)
+    if Config.BlacklistedWords.Enabled then
+        for _, word in pairs(Config.BlacklistedWords.Words) do
+            if string.match(message:lower(), "%f[%a]"..word:lower().."%f[%A]") then
+                CancelEvent()
+                TriggerEvent('zaps:kick', "Tried to say a blacklisted word: " .. word, "Full Message", message)
+                TriggerClientEvent('chat:clear', -1)
+                return
+            end
+        end
+    end
+    if Config.AntiFakeChatMessages.Enabled then
+        local _playername = GetPlayerName(source)
+        if name ~= _playername then
+            CancelEvent()
+            TriggerEvent('zaps:kick', "Tried to fake a chat message: " .. message)
+            return
+        end
+    end
+end)
