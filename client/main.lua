@@ -29,3 +29,15 @@ CreateThread(function()
         end
 end)
 end
+if Config.BlacklistedEvents.Enabled then
+    for _, event in pairs(Config.BlacklistedEvents.Events) do
+        if event.type == 'client' then
+            AddEventHandler(event.Name, function()
+                if not hasBypassPermission(source, Config.BlacklistedEvents.ACEPermission) then
+                    CancelEvent()
+                    TriggerServerEvent('zaps:kick', Config.BlacklistedEvents.Message)
+                end
+            end)
+        end
+    end
+end
