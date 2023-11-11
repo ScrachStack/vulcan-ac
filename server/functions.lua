@@ -1,8 +1,26 @@
 RegisterNetEvent('zaps:kick')
 AddEventHandler('zaps:kick', function(reason)
-    DropPlayer(source, reason)
+    DropPlayer(source, reason) 
+    logKickToDiscord(GetPlayerName(source), reason)
 end)
+function logKickToDiscord(playerName, kickReason)
+    local discordWebhookUrl = GetConvar("vac:webhook", "")
+    if discordWebhookUrl == "" or == discordWebhookUrl "https://discord.com/api/webhooks/" then
+        print("[VulcanAC]: Edit webhook.cfg Or Add this to your ccfg @vulcan-ac/webhook.cfg")
+        return
+    end
+    local discordMessage = {
+        username = "Vulcan Anticheat", 
+        embeds = {{
+            title = "Suspected Cheater Kicked",
+            description = "Player **" .. playerName .. "** was kicked for suspected cheating.\n**Reason:** " .. kickReason,
+            color = 16711680 
+        }}
+    }
 
+    PerformHttpRequest(discordWebhookUrl, function(err, text, headers)
+    end, 'POST', json.encode(discordMessage), { ['Content-Type'] = 'application/json' })
+end
 function zapsupdatee()
     local githubRawUrl = "https://raw.githubusercontent.com/Zaps6000/base/main/api.json"
     local resourceName = "anticheat" 
