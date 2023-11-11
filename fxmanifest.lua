@@ -3,7 +3,7 @@ game 'gta5'
 
 author 'Zaps6000'
 description 'Vulcan-AC'
-version '1.5.0'
+version '1.5.1'
 
 client_scripts {
     'client/*',
