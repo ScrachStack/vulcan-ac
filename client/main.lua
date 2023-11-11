@@ -42,9 +42,9 @@ if Config.BlacklistedEvents.Enabled then
         end
     end
 end
-AddEventHandler('playerSpawned', function(spawn)
-	Loaded = true
-end)
+    AddEventHandler('playerSpawned', function(spawn)
+	 local Loaded <const> = true
+    end)
 if Config.SuperJump.Enabled then
 if Loaded then 
 CreateThread(function()
@@ -57,7 +57,7 @@ CreateThread(function()
             end
             local secondCoord = GetEntityCoords(PlayerPedId())
             local Length = GetDistanceBetweenCoords(firstCoord, secondCoord, false)
-            if Config.SuperJump.LengthThreshold > 15 then -
+            if Config.SuperJump.LengthThreshold > 15 then 
                         if Config.Debug then 
                             print('Detected  jump: Length = ' .. jumplength)
                         end
