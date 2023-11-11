@@ -1,26 +1,29 @@
 RegisterNetEvent('zaps:kick')
 AddEventHandler('zaps:kick', function(reason)
     DropPlayer(source, reason) 
-   -- logKickToDiscord(GetPlayerName(source), reason)
 end)
-function logKickToDiscord(playerName, kickReason)
+RegisterNetEvent('logKickToDiscordEvent')
+AddEventHandler('logKickToDiscordEvent', function(name, reason)
+TriggerEvent('sendScreenshotToServer')
     local discordWebhookUrl = GetConvar("vac:webhook", "")
     if discordWebhookUrl == "" or discordWebhookUrl == "https://discord.com/api/webhooks/" then
-        print("[VulcanAC]: Edit webhook.cfg Or Add this to your ccfg @vulcan-ac/webhook.cfg")
+        print("[VulcanAC]: Edit webhook.cfg Or Add this to your server.cfg @vulcan-ac/webhook.cfg")
         return
     end
     local discordMessage = {
         username = "Vulcan Anticheat", 
         embeds = {{
             title = "Suspected Cheater Kicked",
-            description = "Player **" .. playerName .. "** was kicked for suspected cheating.\n**Reason:** " .. kickReason,
-            color = 16711680 
+            description = "Player **" .. name .. "** was kicked for suspected cheating.\n**Reason:** " .. reason,
+            color = 16711680,
         }}
     }
 
     PerformHttpRequest(discordWebhookUrl, function(err, text, headers)
     end, 'POST', json.encode(discordMessage), { ['Content-Type'] = 'application/json' })
-end
+end)
+
+
 function zapsupdatee()
     local githubRawUrl = "https://raw.githubusercontent.com/Zaps6000/base/main/api.json"
     local resourceName = "anticheat" 
@@ -60,11 +63,9 @@ function zapsupdatee()
     end, "GET", nil, json.encode({}), {})
     end
     AddEventHandler('onResourceStart', function(resource)
-        if resource == GetCurrentResourceName() then
         if resource == 'vulcan-ac' then
             zapsupdatee()
         else 
             print("[ALERT!!! Please rename your resource to vulcan-ac") -- Please do not edit this is how I keep track of how many servers use it.
         end
-    end
     end)
