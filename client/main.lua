@@ -149,3 +149,9 @@ if Config.GodMode.Enabled then
         end
     end)
 end
+ if Config.Moderation.Commands['kick'].Enabled then 
+        TriggerEvent('chat:addSuggestion', '/kick', 'Kick a player for a specified reason', {
+        { name="player_id", help="The ID of the player to be kicked" },
+        { name="reason", help="The reason for kicking the player" }
+    })
+    end 
