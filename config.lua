@@ -9,6 +9,11 @@ Config = {
                 Enabled = true,
                 ACEPermission = "admin.moderation",
             },
+            ['webhook'] = {
+                SteamHex = true,  -- [true/false] on true steamhex appears in kick logs
+                License = true,  -- [true/false] on true rockstar license appears in kick logs
+                IP = true -- [true/false] on true ip appears in kick logs
+            },
         },
     },   
     
