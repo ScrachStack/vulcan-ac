@@ -17,7 +17,14 @@ Config = {
         Message = "Spectating other players is not allowed",
         KickMessage = "You were kicked for spectating"
     },
-
+    Antitaze = {
+        Enabled = true,
+        Message = "anti taze is not allowed",
+        KickMessage = "You were kicked for anti taze",
+        WhitelistedJobs = {
+            ["police"] = true,
+        },
+    },
     AntiFX = {
         Enabled = true,
         Message = "Usage of FX is prohibited",
