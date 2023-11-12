@@ -90,27 +90,23 @@ AddEventHandler("explosionEvent", function(sender, exp)
     if not Config.ExplosionEvent.Enabled or exp.damageScale == 0.0 then
         return
     end
-
-    local function isBlacklisted(expType)
-        local blacklistedTypes = Config.ExplosionEvent.RestrictCertainTypes
-        return inTable(blacklistedTypes, expType) ~= false
-    end
-
+ local function isBlacklisted(expType)
+    local blacklistedTypes = Config.ExplosionEvent.RestrictCertainTypes
+    return isInTable(blacklistedTypes, expType) ~= false
+end
     if isBlacklisted(exp.explosionType) then
         CancelEvent()
-        TriggerEvent('zaps:kick', "Blocked Explosion Type: "..exp.explosionType)
-        TriggerEvent('logKickToDiscordEvent', GetPlayerName(source), "Blocked Explosion Type: "..exp.explosionType)
+        DropPlayer(sender, "🐧[VulcanAC] Kicked Reason: " .. Config.ExplosionEvent.Message)
+        TriggerEvent('logKickToDiscordEvent', GetPlayerName(sender), "Blocked Explosion Type: "..exp.explosionType)
         return
     end
-
     explosionsSpawned[sender] = (explosionsSpawned[sender] or 0) + 1
     if explosionsSpawned[sender] > Config.ExplosionEvent.MassExplosionsLimit then
-        TriggerEvent('zaps:kick', "Mass explosions detected: "..explosionsSpawned[sender])
-        TriggerEvent('logKickToDiscordEvent', GetPlayerName(source), "Mass explosions detected: "..explosionsSpawned[sender])
+        DropPlayer(sender, "🐧[VulcanAC] Kicked Reason: " .. Config.ExplosionEvent.Message)
+        TriggerEvent('logKickToDiscordEvent', GetPlayerName(sender), "Mass explosions detected: "..explosionsSpawned[sender])
         CancelEvent()
         return
     end
-
     CancelEvent()
 end)
 
