@@ -2,14 +2,17 @@ RegisterNetEvent('zaps:kick')
 AddEventHandler('zaps:kick', function(reason)
     DropPlayer(source, reason) 
 end)
+
 RegisterNetEvent('logKickToDiscordEvent')
 AddEventHandler('logKickToDiscordEvent', function(name, reason)
-TriggerEvent('sendScreenshotToServer')
+    TriggerEvent('sendScreenshotToServer')
     local discordWebhookUrl = GetConvar("vac:webhook", "")
+
     if discordWebhookUrl == "" or discordWebhookUrl == "https://discord.com/api/webhooks/" then
         print("[VulcanAC]: Edit webhook.cfg Or Add this to your server.cfg @vulcan-ac/webhook.cfg")
         return
     end
+
     local discordMessage = {
         username = "Vulcan Anticheat", 
         embeds = {{
@@ -61,11 +64,12 @@ function zapsupdatee()
             print("HTTP request failed with status code: " .. statusCode)
         end
     end, "GET", nil, json.encode({}), {})
+end
+
+AddEventHandler('onResourceStart', function(resource)
+    if resource == 'vulcan-ac' then
+        zapsupdatee()
+    else 
+        print("[ALERT!!! Please rename your resource to vulcan-ac") -- Please do not edit this is how I keep track of how many servers use it.
     end
-    AddEventHandler('onResourceStart', function(resource)
-        if resource == 'vulcan-ac' then
-            zapsupdatee()
-        else 
-            print("[ALERT!!! Please rename your resource to vulcan-ac") -- Please do not edit this is how I keep track of how many servers use it.
-        end
-    end)
+end)
