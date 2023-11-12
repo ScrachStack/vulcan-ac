@@ -91,8 +91,8 @@ if Config.AntiNoClip.Enabled then
                     print(GetDistanceBetweenCoords(posx,posy,posz, newx,newy,newz))
                 end
                     
-                TriggerServerEvent('zaps:kick', Config.Spectate.Message)
-                TriggerEvent('logKickToDiscordEvent', GetPlayerName(PlayerId()), Config.Spectate.Message .. " - Distance change in 3 second - " .. GetDistanceBetweenCoords(posx,posy,posz, newx,newy,newz))
+                TriggerServerEvent('zaps:kick', Config.AntiNoClip.Message)
+                TriggerEvent('logKickToDiscordEvent', GetPlayerName(PlayerId()), Config.AntiNoClip.Message .. " - Distance change in 3 second - " .. GetDistanceBetweenCoords(posx,posy,posz, newx,newy,newz))
             end
         end
     end)
