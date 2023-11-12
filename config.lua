@@ -2,7 +2,16 @@
 
 Config = {
     Debug = false,
-
+    
+    Moderation = {
+        Commands = {
+            ['kick'] = {
+                Enabled = true,
+                ACEPermission = "admin.moderation",
+            },
+        },
+    },   
+    
     GodMode = {
         Enabled = true,
         CheckInterval = 0,  -- Time in milliseconds between each godmode check
