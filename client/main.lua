@@ -1,4 +1,5 @@
 -- join https://discord.gg/cfxdev for support
+local loaded = false
 if Config.BlacklistedMenuTextures.Enabled then
     CreateThread(function()
         while true do
@@ -96,3 +97,21 @@ if Config.AntiNoClip.Enabled then
         end
     end)
 end
+AddEventHandler('playerSpawned', function(spawn)
+	loaded = true
+    end)
+
+    if Config.AntiResourceTamper.Enabled then 
+    AddEventHandler('onResourceStop', function(resourceName)
+    if not loaded then return end
+		if resourceName == GetCurrentResourceName() then
+            CancelEvent()
+            TriggerServerEvent('zaps:kick', Config.AntiResourceTamper.KickMessage)
+            TriggerEvent('logKickToDiscordEvent', GetPlayerName(PlayerId()), Config.AntiResourceTamper.Message)
+                else
+            CancelEvent()
+            TriggerServerEvent('zaps:kick', Config.Spectate.Message)
+            TriggerEvent('logKickToDiscordEvent', GetPlayerName(PlayerId()), Config.AntiResourceTamper.KickMessage)
+		    end
+	    end)
+    end
