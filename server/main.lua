@@ -24,48 +24,54 @@ local function tableToString(tbl)
     end
     return result .. "}"
 end
+
 if Config.AntiFX.Enabled then 
-AddEventHandler('ptFxEvent', function(sender, eventName, eventData)
-    local eventDataString = (type(eventData) == "table") and tableToString(eventData) or tostring(eventData)
-if IsAceAllowed(sender, Config.AntiFX.ACEPermission) then 
-    if not isInTable(Config.AntiFX.fxWhitelist, eventName) then
-        fxCounts[sender] = (fxCounts[sender] or 0) + 1
+    AddEventHandler('ptFxEvent', function(sender, eventName, eventData)
+        local eventDataString = (type(eventData) == "table") and tableToString(eventData) or tostring(eventData)
+        if IsAceAllowed(sender, Config.AntiFX.ACEPermission) then 
+            if not isInTable(Config.AntiFX.fxWhitelist, eventName) then
+                fxCounts[sender] = (fxCounts[sender] or 0) + 1
 
-        if fxCounts[sender] > Config.AntiFX.limit then
-            CancelEvent()
-TriggerEvent('zaps:kick', Config.AntiFX.Message)
-TriggerEvent('logKickToDiscordEvent', Config.AntiFX.Message)
+                if fxCounts[sender] > Config.AntiFX.limit then
+                    CancelEvent()
+                    TriggerEvent('zaps:kick', Config.AntiFX.Message)
+                    TriggerEvent('logKickToDiscordEvent', Config.AntiFX.Message)
+                end
+            end
         end
-    end
-end
-end)
+    end)
 end
 
-    local entityCreationCounts = {}
+local entityCreationCounts = {}
 
-    if Config.AntiEntityTamper.Enabled then 
-AddEventHandler('entityCreating', function(entity)
-    local _src = NetworkGetEntityOwner(entity)
-    if IsAceAllowed(source, Config.AntiEntityTamper.ACEPermission) then 
-    if not entityCreationCounts[_src] then
-        entityCreationCounts[_src] = { count = 0, timer = nil }
-    end
-    local data = Config.AntiEntityTamper.EntityCreation_Limit[_src]
-    data.count = data.count + 1
-    if data.count > ENTITY_CREATION_LIMIT then
-            CancelEvent()
- TriggerEvent('zaps:kick', Config.AntiEntityTamper.Message)
-TriggerEvent('logKickToDiscordEvent', Config.AntiEntityTamper.Message)
+if Config.AntiEntityTamper.Enabled then 
+    AddEventHandler('entityCreating', function(entity)
+        local _src = NetworkGetEntityOwner(entity)
+
+        if IsAceAllowed(source, Config.AntiEntityTamper.ACEPermission) then 
+            if not entityCreationCounts[_src] then
+                entityCreationCounts[_src] = { count = 0, timer = nil }
+            end
+
+            local data = Config.AntiEntityTamper.EntityCreation_Limit[_src]
+            data.count = data.count + 1
+
+            if data.count > ENTITY_CREATION_LIMIT then
+                CancelEvent()
+                TriggerEvent('zaps:kick', Config.AntiEntityTamper.Message)
+                TriggerEvent('logKickToDiscordEvent', Config.AntiEntityTamper.Message)
+            end
+
+            if not data.timer then
+                data.timer = SetTimer(function()
+                    data.count = 0
+                    data.timer = nil
+                end, TIME_WINDOW, 1)
+            end
         end
-    if not data.timer then
-        data.timer = SetTimer(function()
-            data.count = 0
-            data.timer = nil
-        end, TIME_WINDOW, 1)
-    end
+    end)
 end
-end)
-end
+
 if Config.BlacklistedEvents.Enabled then
     for _, event in pairs(Config.BlacklistedEvents.Events) do
         if event.type == 'server' then
@@ -79,20 +85,24 @@ if Config.BlacklistedEvents.Enabled then
         end
     end
 end
+
 AddEventHandler("explosionEvent", function(sender, exp)
     if not Config.ExplosionEvent.Enabled or exp.damageScale == 0.0 then
         return
     end
- local function isBlacklisted(expType)
-    local blacklistedTypes = Config.ExplosionEvent.RestrictCertainTypes
-    return inTable(blacklistedTypes, expType) ~= false
-end
+
+    local function isBlacklisted(expType)
+        local blacklistedTypes = Config.ExplosionEvent.RestrictCertainTypes
+        return inTable(blacklistedTypes, expType) ~= false
+    end
+
     if isBlacklisted(exp.explosionType) then
         CancelEvent()
         TriggerEvent('zaps:kick', "Blocked Explosion Type: "..exp.explosionType)
         TriggerEvent('logKickToDiscordEvent', GetPlayerName(source), "Blocked Explosion Type: "..exp.explosionType)
         return
     end
+
     explosionsSpawned[sender] = (explosionsSpawned[sender] or 0) + 1
     if explosionsSpawned[sender] > Config.ExplosionEvent.MassExplosionsLimit then
         TriggerEvent('zaps:kick', "Mass explosions detected: "..explosionsSpawned[sender])
@@ -100,9 +110,11 @@ end
         CancelEvent()
         return
     end
+
     CancelEvent()
 end)
-    AddEventHandler("chatMessage", function(source, name, message)
+
+AddEventHandler("chatMessage", function(source, name, message)
     if Config.BlacklistedWords.Enabled then
         for _, word in pairs(Config.BlacklistedWords.Words) do
             if string.match(message:lower(), "%f[%a]"..word:lower().."%f[%A]") then
@@ -114,6 +126,7 @@ end)
             end
         end
     end
+
     if Config.AntiFakeChatMessages.Enabled then
         local _playername = GetPlayerName(source)
         if name ~= _playername then
@@ -123,6 +136,7 @@ end)
         end
     end
 end)
+
 if Config.SuperJump.Enabled then
     CreateThread(function()
         while true do
@@ -143,14 +157,17 @@ if Config.SuperJump.Enabled then
         end
     end)
 end
+
 if GetResourceState('es_extended') ~= 'missing' then
     ESX = exports["es_extended"]:getSharedObject()
     UseEsx = true
 end
+
 if GetResourceState('qb-core') ~= 'missing' then
 	QBCore = exports['qb-core']:GetCoreObject()
     UseQB = true
 end
+
 AddEventHandler("weaponDamageEvent", function(sender, data)
     if UseEsx and Config.Antitaze.Enabled then
         local _src = sender
@@ -164,6 +181,7 @@ AddEventHandler("weaponDamageEvent", function(sender, data)
         end
     end
 end)
+
 AddEventHandler("weaponDamageEvent", function(sender, data)
     if UseQB and Config.Antitaze.Enabled then
         local _src = sender

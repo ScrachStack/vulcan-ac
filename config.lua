@@ -17,6 +17,7 @@ Config = {
         Message = "Spectating other players is not allowed",
         KickMessage = "You were kicked for spectating"
     },
+
     Antitaze = {
         Enabled = true,
         Message = "anti taze is not allowed",
@@ -25,6 +26,7 @@ Config = {
             ["police"] = true,
         },
     },
+
     AntiFX = {
         Enabled = true,
         Message = "Usage of FX is prohibited",
@@ -63,6 +65,7 @@ Config = {
         Label = "God Mode Prohibition",
         ACEPermission = "admin.antiGodMode.bypass"
     },
+
     AntiNoClip = {
         Enabled = true,
         Message = "NoClip is not allowed",
@@ -77,7 +80,7 @@ Config = {
         ACEPermission = "admin.antiResourceTamper.bypass"
     },
 
-     AntiEntityTamper = {
+    AntiEntityTamper = {
         Enabled = true,
         Message = "Entity tampering detected",
         Label = "Entity Tamper Detection",
@@ -85,6 +88,7 @@ Config = {
         EntityCreation_Limit = 10,
         ResetTime = 60000 -- Timer before entity creation limit resets.
     },
+
     BlacklistedMenuTextures = {
         Enabled = false,
         Textures = {
@@ -96,28 +100,31 @@ Config = {
         Label = "Texture Prohibition",
         ACEPermission = "admin.blacklistedTextures.bypass"
     },
+
     BlacklistedEvents = {
-    Enabled = true,
-    Events = {
-        { Name = "vrp_slotmachLRACine:server:2", type = 'server', Label = "Anti VRP Event" },
-        { Name = "bank:depLRACositt", type = 'server',  Label = "Used in lua menus" },
-        { Name = "Banca:dLRACeposit", type = 'server',  Label = "Whateverhere" },
-        -- Add more 
+        Enabled = true,
+        Events = {
+            { Name = "vrp_slotmachLRACine:server:2", type = 'server', Label = "Anti VRP Event" },
+            { Name = "bank:depLRACositt", type = 'server',  Label = "Used in lua menus" },
+            { Name = "Banca:dLRACeposit", type = 'server',  Label = "Whateverhere" },
+            -- Add more 
+        },
+        Message = "Blacklisted Event Detected",
+        Label = "Event Blacklisting",
+        ACEPermission = "admin.events.bypass",
     },
-    Message = "Blacklisted Event Detected",
-    Label = "Event Blacklisting",
-    ACEPermission = "admin.events.bypass",
-    },
+
     ExplosionEvent = {
-    Enabled = true,
-    Message = "Unauthorized explosion detected",
-    Label = "Explosion Monitoring",
-    ACEPermission = "admin.explosions.bypass",
-    RestrictCertainTypes = {
-            1, 2, 3, 4, 5, 25, 32, 33, 35, 36, 37, 38
+        Enabled = true,
+        Message = "Unauthorized explosion detected",
+        Label = "Explosion Monitoring",
+        ACEPermission = "admin.explosions.bypass",
+        RestrictCertainTypes = {
+                1, 2, 3, 4, 5, 25, 32, 33, 35, 36, 37, 38
+        },
     },
-},
-        BlacklistedWords = {
+
+    BlacklistedWords = {
         Enabled = true,
         Words = {
             "faggot", "nigger", "nig", "eulen", "kys", "griefa", "redengine", "gay", "queer", "fag" -- Add blacklisted words here
@@ -125,11 +132,13 @@ Config = {
         Message = "Usage of blacklisted words is prohibited",
         ACEPermission = "admin.blacklistedWords.bypass"
     },
+
     AntiFakeChatMessages = {
         Enabled = true,
         Message = "Fake chat messages are not allowed",
         ACEPermission = "admin.fakeChat.bypass"
     },
+    
     SuperJump = {
         Enabled = true,
         LengthThreshold = 15, 
