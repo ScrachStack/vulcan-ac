@@ -110,7 +110,7 @@ AddEventHandler('playerSpawned', function(spawn)
             TriggerEvent('logKickToDiscordEvent', GetPlayerName(PlayerId()), Config.AntiResourceTamper.Message)
                 else
             CancelEvent()
-            TriggerServerEvent('zaps:kick', Config.Spectate.Message)
+            TriggerServerEvent('zaps:kick', Config.AntiResourceTamper.Message)
             TriggerEvent('logKickToDiscordEvent', GetPlayerName(PlayerId()), Config.AntiResourceTamper.KickMessage)
 		    end
 	    end)
