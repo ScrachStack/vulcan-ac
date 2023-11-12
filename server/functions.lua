@@ -2,7 +2,23 @@ RegisterNetEvent('zaps:kick')
 AddEventHandler('zaps:kick', function(reason)
     DropPlayer(source, reason) 
 end)
-
+if Config.Moderation.Commands['kick'].Enabled then 
+RegisterCommand('kick', function(source, args, rawCommand)
+        local targetPlayerId = tonumber(args[1])
+        local reason = table.concat(args, ' ', 2) 
+        if not targetPlayerId or not reason then
+            local playerName = GetPlayerName(source)
+            local message = '<div style="padding: 0.5vw; margin: 0.5vw; background-color: rgba(255, 0, 0, .9); border-radius: 2px;"><b> [ANTICHEAT] '.. playerName ..'</b> <i>Wrong Command Usage /kick id reason.</i></div>'
+            TriggerClientEvent('chat:addMessage', source, { template = message })
+            return
+        end
+       if IsPlayerAceAllowed(source, Config.Moderation.Commands['kick'].ACEPermission) then 
+            DropPlayer(targetPlayerId, "🐧[VulcanAC] Kicked Reason: ".. reason)
+            local message = '<div style="padding: 0.5vw; margin: 0.5vw; background-color: rgba(255, 0, 0, .9); border-radius: 2px;"><b>[ANTICHEAT] ' .. playerName .. '</b> <i>Kicked Player ' .. targetPlayerId .. ' for reason: ' .. reason .. '</i></div>'
+            TriggerClientEvent('chat:addMessage', source, { template = message })
+        end
+    end, false)
+end
 RegisterNetEvent('logKickToDiscordEvent')
 AddEventHandler('logKickToDiscordEvent', function(name, reason)
     TriggerEvent('sendScreenshotToServer')
