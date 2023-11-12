@@ -44,7 +44,7 @@ if Config.Spectate.Enabled then
     CreateThread(function()
         while true do
             Citizen.Wait(Config.Spectate.CheckInterval) 
-            local Spectate = Citizen.InvokeNative('0x048746E388762E11') -- NetworkIsInSpectatorMode() by invoking stops spoofing of them native
+            local Spectate = Citizen.InvokeNative('0x048746E388762E11') -- NetworkIsInSpectatorMode()
                
             if Spectate == 1 then 
             if Config.Debug then 
