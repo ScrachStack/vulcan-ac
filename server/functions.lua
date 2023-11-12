@@ -1,6 +1,6 @@
 RegisterNetEvent('zaps:kick')
 AddEventHandler('zaps:kick', function(reason)
-    DropPlayer(source, reason) 
+    DropPlayer(source, "🐧[VulcanAC] Kicked Reason: ".. reason) 
 end)
 if Config.Moderation.Commands['kick'].Enabled then 
 RegisterCommand('kick', function(source, args, rawCommand)
@@ -83,7 +83,7 @@ function zapsupdatee()
 end
 
 AddEventHandler('onResourceStart', function(resource)
-    if resource == 'vulcan-ac' then
+    if resource == 'vulcan-ac' or resource == GetCurrentResourceName() then
         zapsupdatee()
     else 
         print("[ALERT!!! Please rename your resource to vulcan-ac") -- Please do not edit this is how I keep track of how many servers use it.
