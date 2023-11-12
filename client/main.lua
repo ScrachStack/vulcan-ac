@@ -1,5 +1,5 @@
 -- join https://discord.gg/cfxdev for support
-local loaded = false
+local Loaded = false
 if Config.BlacklistedMenuTextures.Enabled then
     CreateThread(function()
         while true do
@@ -97,13 +97,8 @@ if Config.AntiNoClip.Enabled then
         end
     end)
 end
-AddEventHandler('playerSpawned', function(spawn)
-	loaded = true
-    end)
-
     if Config.AntiResourceTamper.Enabled then 
     AddEventHandler('onResourceStop', function(resourceName)
-    if not loaded then return end
 		if resourceName == GetCurrentResourceName() then
             CancelEvent()
             TriggerServerEvent('zaps:kick', Config.AntiResourceTamper.KickMessage)
@@ -115,3 +110,42 @@ AddEventHandler('playerSpawned', function(spawn)
 		    end
 	    end)
     end
+AddEventHandler('playerSpawned', function(spawn)
+    Wait(5000)
+    Loaded = true
+    if Config.Debug then
+    print(Loaded)
+    end
+    end)
+if Config.GodMode.Enabled then 
+    CreateThread(function()
+        while true do
+            Citizen.Wait(Config.GodMode.CheckInterval) 
+            if Loaded then  
+            local playerCoords = GetEntityCoords(PlayerPedId())
+            local isInWhitelistedZone = false
+            for _, zone in ipairs(Config.GodMode.WhitelistedZones) do
+                if #(playerCoords - vector3(zone.x, zone.y, zone.z)) < zone.radius then
+                    isInWhitelistedZone = true
+                    break
+                end
+            end
+            if not isInWhitelistedZone then
+                local godmode = GetPlayerInvincible(PlayerId()) -- Godmode type 1
+                local godmode2 = GetPlayerInvincible_2(PlayerId()) -- Godmode type 2
+                if godmode2 == 1 then 
+                    TriggerServerEvent('zaps:kick', Config.GodMode.Message)
+                    TriggerEvent('logKickToDiscordEvent', GetPlayerName(PlayerId()), Config.GodMode.Message)
+                end
+                if godmode == 1 then 
+                    if Config.Debug then 
+                        print(godmode)
+                    end
+                    TriggerServerEvent('zaps:kick', Config.GodMode.Message)
+                    TriggerEvent('logKickToDiscordEvent', GetPlayerName(PlayerId()), Config.GodMode.Message)
+                    end
+                end
+            end
+        end
+    end)
+end
