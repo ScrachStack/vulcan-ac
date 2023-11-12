@@ -111,7 +111,7 @@ end
 	    end)
     end
 AddEventHandler('playerSpawned', function(spawn)
-    Wait(5000)
+    Wait(50000)
     Loaded = true
     if Config.Debug then
     print(Loaded)
