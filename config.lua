@@ -99,7 +99,8 @@ Config = {
         Label = "Entity Tamper Detection",
         ACEPermission = "admin.Entity.bypass",
         EntityCreation_Limit = 10,
-        ResetTime = 60000 -- Timer before entity creation limit resets.
+        ResetTime = 60000, -- Timer before entity creation limit resets.
+        WhitelistedModels = {"prop_ballistic_shield","xm_prop_x17_tem_control_01","prop_roadcone02a","ba_prop_battle_glowstick_01","ba_prop_battle_hobby_horse","prop_taco_01","p_amb_brolly_01","prop_notepad_01","prop_pencil_01","hei_prop_heist_box","prop_single_rose","prop_cs_ciggy_01","hei_heist_sh_bong_01","prop_ld_suitcase_01","prop_security_case_01","prop_police_id_board","p_amb_coffeecup_01",},
     },
 
     BlacklistedMenuTextures = {
