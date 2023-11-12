@@ -5,10 +5,14 @@ Config = {
 
     GodMode = {
         Enabled = true,
-        CheckInterval = 3000,  -- Time in milliseconds between each godmode check
+        CheckInterval = 0,  -- Time in milliseconds between each godmode check
         HealthThreshold = 200,  -- Health value that is considered abnormal (indicative of godmode)
         Message = "Godmode usage detected",
-        KickMessage = "You were kicked for using godmode"
+        KickMessage = "You were kicked for using godmode",
+        WhitelistedZones = {
+            {x = 100.0, y = 200.0, z = 300.0, radius = 50.0}, 
+            {x = 400.0, y = 500.0, z = 600.0, radius = 75.0}  
+        },
     },
 
     Spectate = {
