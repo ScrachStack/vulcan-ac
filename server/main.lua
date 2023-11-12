@@ -8,7 +8,12 @@ local function isInTable(tbl, value)
     end
     return false
 end
-
+local function inTable(table, item)
+    for k,v in pairs(table) do
+        if v == item then return k end
+    end
+    return false
+end
 local function tableToString(tbl)
     local result = "{"
     for k, v in pairs(tbl) do
@@ -86,29 +91,31 @@ if Config.BlacklistedEvents.Enabled then
     end
 end
 
+local explosionsSpawned = {}
 AddEventHandler("explosionEvent", function(sender, exp)
     if not Config.ExplosionEvent.Enabled or exp.damageScale == 0.0 then
         return
     end
  local function isBlacklisted(expType)
     local blacklistedTypes = Config.ExplosionEvent.RestrictCertainTypes
-    return isInTable(blacklistedTypes, expType) ~= false
+    return inTable(blacklistedTypes, expType) ~= false
 end
     if isBlacklisted(exp.explosionType) then
         CancelEvent()
-        DropPlayer(sender, "🐧[VulcanAC] Kicked Reason: " .. Config.ExplosionEvent.Message)
         TriggerEvent('logKickToDiscordEvent', GetPlayerName(sender), "Blocked Explosion Type: "..exp.explosionType)
+        DropPlayer(sender, "🐧[VulcanAC] Kicked Reason: " .. Config.ExplosionEvent.Message)
         return
     end
     explosionsSpawned[sender] = (explosionsSpawned[sender] or 0) + 1
-    if explosionsSpawned[sender] > Config.ExplosionEvent.MassExplosionsLimit then
-        DropPlayer(sender, "🐧[VulcanAC] Kicked Reason: " .. Config.ExplosionEvent.Message)
+    if explosionsSpawned[sender] > 5 then
         TriggerEvent('logKickToDiscordEvent', GetPlayerName(sender), "Mass explosions detected: "..explosionsSpawned[sender])
+        DropPlayer(sender, "🐧[VulcanAC] Kicked Reason: " .. Config.ExplosionEvent.Message)
         CancelEvent()
         return
     end
     CancelEvent()
 end)
+
 
 AddEventHandler("chatMessage", function(source, name, message)
     if Config.BlacklistedWords.Enabled then
