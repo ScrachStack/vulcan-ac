@@ -50,11 +50,48 @@ if Config.Spectate.Enabled then
             local Spectate = Citizen.InvokeNative('0x048746E388762E11') -- NetworkIsInSpectatorMode()
                
             if Spectate == 1 then 
-            if Config.Debug then 
-            print(Spectate)
+                if Config.Debug then 
+                    print(Spectate)
                 end
                 TriggerServerEvent('zaps:kick', Config.Spectate.Message)
                 TriggerEvent('logKickToDiscordEvent', GetPlayerName(PlayerId()), Config.Spectate.Message)
+            end
+        end
+    end)
+end
+
+if Config.AntiNoClip.Enabled then
+    Citizen.CreateThread(function()
+        while true do
+            Citizen.Wait(3000)
+            local ped = PlayerPedId()
+            local posx,posy,posz = table.unpack(GetEntityCoords(ped, true))
+            local still = IsPedStill(ped)
+            local vel = GetEntitySpeed(ped)
+            local ped = PlayerPedId()
+            local veh = IsPedInAnyVehicle(ped, true)
+            local speed = GetEntitySpeed(ped)
+            local para = GetPedParachuteState(ped)
+            local flyveh = IsPedInFlyingVehicle(ped)
+            local rag = IsPedRagdoll(ped)
+            local fall = IsPedFalling(ped)
+            local parafall = IsPedInParachuteFreeFall(ped)
+    
+            local more = speed - 9.0
+    
+            local rounds = tonumber(string.format("%.2f", speed))
+            local roundm = tonumber(string.format("%.2f", more))
+    
+            newx,newy,newz = table.unpack(GetEntityCoords(ped,true))
+            newPed = PlayerPedId()
+                                
+            if GetDistanceBetweenCoords(posx,posy,posz, newx,newy,newz) > 200 and still == IsPedStill(ped) and vel == GetEntitySpeed(ped) and ped == newPed then
+                if Config.Debug then 
+                    print(GetDistanceBetweenCoords(posx,posy,posz, newx,newy,newz))
+                end
+                    
+                TriggerServerEvent('zaps:kick', Config.Spectate.Message)
+                TriggerEvent('logKickToDiscordEvent', GetPlayerName(PlayerId()), Config.Spectate.Message .. " - Distance change in 3 second - " .. GetDistanceBetweenCoords(posx,posy,posz, newx,newy,newz))
             end
         end
     end)
