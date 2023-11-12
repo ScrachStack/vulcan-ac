@@ -123,3 +123,23 @@ end)
         end
     end
 end)
+if Config.SuperJump.Enabled then
+    CreateThread(function()
+        while true do
+            Wait(1500)
+            local players = GetPlayers()
+            for i = 1, #players do
+                local playerId = players[i]
+                local playerPed = GetPlayerPed(playerId) 
+                if IsPlayerUsingSuperJump(playerId) then
+                    if Config.Debug then 
+                        print('Super jump detected for player: ' .. playerId)
+                    end
+                    TriggerEvent('logKickToDiscordEvent', GetPlayerName(playerId), Config.SuperJump.Message)
+                    DropPlayer(playerId, Config.SuperJump.Message)
+                    break
+                end
+            end
+        end
+    end)
+end
