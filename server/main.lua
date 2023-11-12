@@ -151,7 +151,6 @@ if GetResourceState('qb-core') ~= 'missing' then
 	QBCore = exports['qb-core']:GetCoreObject()
     UseQB = true
 end
-if UseEsx then
 AddEventHandler("weaponDamageEvent", function(sender, data)
     if UseEsx and Config.Antitaze.Enabled then
         local _src = sender
@@ -165,10 +164,8 @@ AddEventHandler("weaponDamageEvent", function(sender, data)
         end
     end
 end)
-end
-if UseQB then
 AddEventHandler("weaponDamageEvent", function(sender, data)
-    if UseEsx and Config.Antitaze.Enabled then
+    if UseQB and Config.Antitaze.Enabled then
         local _src = sender
         local xPlayer = QBCore.Functions.GetPlayer(_src)
         if xPlayer ~= nil and not Config.Antitaze.WhitelistedJobs[xPlayer.job.name] and data.weaponType == 911657153 or data.weaponType == joaat("WEAPON_STUNGUN") then
@@ -178,4 +175,3 @@ AddEventHandler("weaponDamageEvent", function(sender, data)
         end
     end
 end)
-end
