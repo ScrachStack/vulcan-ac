@@ -3,6 +3,21 @@
 Config = {
     Debug = false,
 
+    GodMode = {
+        Enabled = true,
+        CheckInterval = 3000,  -- Time in milliseconds between each godmode check
+        HealthThreshold = 200,  -- Health value that is considered abnormal (indicative of godmode)
+        Message = "Godmode usage detected",
+        KickMessage = "You were kicked for using godmode"
+    },
+
+    Spectate = {
+        Enabled = true,
+        CheckInterval = 0,  -- Time in milliseconds between each spectate check
+        Message = "Spectating other players is not allowed",
+        KickMessage = "You were kicked for spectating"
+    },
+
     AntiFX = {
         Enabled = true,
         Message = "Usage of FX is prohibited",
@@ -15,7 +30,7 @@ Config = {
     },
 
     BlacklistedKeys = { -- https://docs.fivem.net/docs/game-references/controls/
-        Enabled = true,
+        Enabled = false,
         Keys = {
             {KeyCode = "121", Label = "INSERT KEY"}, -- INSERT
 
@@ -64,7 +79,7 @@ Config = {
         ResetTime = 60000 -- Timer before entity creation limit resets.
     },
     BlacklistedMenuTextures = {
-        Enabled = true,
+        Enabled = false,
         Textures = {
             {Texture = "digitaloverlay", Label = "Brutan Menu"},
             {Texture = "deadline", Label = "Dopamine"},
@@ -94,6 +109,7 @@ Config = {
     RestrictCertainTypes = {
             1, 2, 3, 4, 5, 25, 32, 33, 35, 36, 37, 38
     },
+},
         BlacklistedWords = {
         Enabled = true,
         Words = {
@@ -113,4 +129,4 @@ Config = {
         Message = "Super jump detected",  
         ACEPermission = "admin.explosions.bypass",
     }
-}}
+}
