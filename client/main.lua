@@ -1,5 +1,4 @@
 -- join https://discord.gg/cfxdev for support
-local Loaded  = false
 if Config.BlacklistedMenuTextures.Enabled then
     CreateThread(function()
         while true do
@@ -40,30 +39,4 @@ if Config.BlacklistedEvents.Enabled then
             end)
         end
     end
-end
-    AddEventHandler('playerSpawned', function(spawn)
-	  Loaded = true
-    end)
-if Config.SuperJump.Enabled then
-if Loaded then 
-CreateThread(function()
-    while true do
-        Wait(1500)
-        if IsPedJumping(PlayerPedId()) then
-            local firstCoord = GetEntityCoords(PlayerPedId())
-            while IsPedJumping(PlayerPedId()) do
-                Wait(0)
-            end
-            local secondCoord = GetEntityCoords(PlayerPedId())
-            local Length = GetDistanceBetweenCoords(firstCoord, secondCoord, false)
-            if Config.SuperJump.LengthThreshold > 15 then 
-                        if Config.Debug then 
-                            print('Detected  jump: Length = ' .. jumplength)
-                        end
-            TriggerServerEvent('zaps:kick', Config.SuperJump.Message)
-            end
-        end
-    end
-end)
-end
 end
