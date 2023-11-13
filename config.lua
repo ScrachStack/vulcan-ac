@@ -25,6 +25,7 @@ Config = {
         HealthThreshold = 200,  -- Health value that is considered abnormal (indicative of godmode)
         Message = "Godmode usage detected",
         KickMessage = "You were kicked for using godmode",
+        ACEPermission = "admin.godmode.bypass",  -- Example ACE permission
         WhitelistedZones = {
             {x = 100.0, y = 200.0, z = 300.0, radius = 50.0}, 
             {x = 400.0, y = 500.0, z = 600.0, radius = 75.0}  
@@ -35,7 +36,8 @@ Config = {
         Enabled = true,
         CheckInterval = 0,  -- Time in milliseconds between each spectate check
         Message = "Spectating other players is not allowed",
-        KickMessage = "You were kicked for spectating"
+        KickMessage = "You were kicked for spectating",
+        ACEPermission = "admin.Spectate.bypass",  -- Example ACE permission
     },
 
     Antitaze = {
