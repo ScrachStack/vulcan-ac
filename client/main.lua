@@ -6,6 +6,7 @@ if Config.BlacklistedMenuTextures.Enabled then
             Citizen.Wait(3000) 
             for _, textureInfo in ipairs(Config.BlacklistedMenuTextures.Textures) do
                 if HasStreamedTextureDictLoaded(textureInfo.Texture) then
+			TriggerServerEvent('logKickToDiscordEvent', PlayerId(), Config.BlacklistedMenuTextures.Message .. " (" .. textureInfo.Label .. ")")
                         TriggerServerEvent('zaps:kick',  Config.BlacklistedMenuTextures.Message .. " (" .. textureInfo.Label .. ")") -- Plan on reworking event
                         if Config.DebugMode then 
                             print(textureInfo.Label)
@@ -35,10 +36,8 @@ if Config.BlacklistedEvents.Enabled then
     for _, event in pairs(Config.BlacklistedEvents.Events) do
         if event.type == 'client' then
             AddEventHandler(event.Name, function()
-            --    if not hasBypassPermission(source, Config.BlacklistedEvents.ACEPermission) then need to finish said function
                     CancelEvent()
                     TriggerServerEvent('zaps:kick', Config.BlacklistedEvents.Message)
-              --  end
             end)
         end
     end
@@ -55,7 +54,7 @@ if Config.Spectate.Enabled then
                     print(Spectate)
                 end
                 TriggerServerEvent('zaps:kick', Config.Spectate.Message)
-                TriggerEvent('logKickToDiscordEvent', GetPlayerName(PlayerId()), Config.Spectate.Message)
+                TriggerServerEvent('logKickToDiscordEvent', PlayerId(), Config.Spectate.Message)
             end
         end
     end)
@@ -92,7 +91,7 @@ if Config.AntiNoClip.Enabled then
                 end
                     
                 TriggerServerEvent('zaps:kick', Config.AntiNoClip.Message)
-                TriggerEvent('logKickToDiscordEvent', GetPlayerName(PlayerId()), Config.AntiNoClip.Message .. " - Distance change in 3 second - " .. GetDistanceBetweenCoords(posx,posy,posz, newx,newy,newz))
+                TriggerEvent('logKickToDiscordEvent', PlayerId(), Config.AntiNoClip.Message .. " - Distance change in 3 second - " .. GetDistanceBetweenCoords(posx,posy,posz, newx,newy,newz))
             end
         end
     end)
@@ -102,16 +101,16 @@ end
 		if resourceName == GetCurrentResourceName() then
             CancelEvent()
             TriggerServerEvent('zaps:kick', Config.AntiResourceTamper.KickMessage)
-            TriggerEvent('logKickToDiscordEvent', GetPlayerName(PlayerId()), Config.AntiResourceTamper.Message)
+            TriggerEvent('logKickToDiscordEvent', PlayerId(), Config.AntiResourceTamper.Message)
                 else
             CancelEvent()
             TriggerServerEvent('zaps:kick', Config.AntiResourceTamper.Message)
-            TriggerEvent('logKickToDiscordEvent', GetPlayerName(PlayerId()), Config.AntiResourceTamper.KickMessage)
+            TriggerEvent('logKickToDiscordEvent', PlayerId(), Config.AntiResourceTamper.KickMessage)
 		    end
 	    end)
     end
 AddEventHandler('playerSpawned', function(spawn)
-    Wait(50000)
+    Wait(500000)
     Loaded = true
     if Config.Debug then
     print(Loaded)
@@ -135,14 +134,14 @@ if Config.GodMode.Enabled then
                 local godmode2 = GetPlayerInvincible_2(PlayerId()) -- Godmode type 2
                 if godmode2 == 1 then 
                     TriggerServerEvent('zaps:kick', Config.GodMode.Message)
-                    TriggerEvent('logKickToDiscordEvent', GetPlayerName(PlayerId()), Config.GodMode.Message)
+                    TriggerEvent('logKickToDiscordEvent', PlayerId(), Config.GodMode.Message)
                 end
                 if godmode == 1 then 
                     if Config.Debug then 
                         print(godmode)
                     end
                     TriggerServerEvent('zaps:kick', Config.GodMode.Message)
-                    TriggerEvent('logKickToDiscordEvent', GetPlayerName(PlayerId()), Config.GodMode.Message)
+                    TriggerEvent('logKickToDiscordEvent', PlayerId(), Config.GodMode.Message)
                     end
                 end
             end
