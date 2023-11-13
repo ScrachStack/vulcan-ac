@@ -29,49 +29,49 @@ local function tableToString(tbl)
     end
     return result .. "}"
 end
-
 if Config.AntiFX.Enabled then 
-    AddEventHandler('ptFxEvent', function(sender, eventName, eventData)
-        local eventDataString = (type(eventData) == "table") and tableToString(eventData) or tostring(eventData)
-        if IsAceAllowed(sender, Config.AntiFX.ACEPermission) then 
-            if not isInTable(Config.AntiFX.fxWhitelist, eventName) then
-                fxCounts[sender] = (fxCounts[sender] or 0) + 1
+AddEventHandler('ptFxEvent', function(sender, eventName, eventData)
+    local eventDataString = (type(eventData) == "table") and tableToString(eventData) or tostring(eventData)
+if IsPlayerAceAllowed(sender, Config.AntiFX.ACEPermission) then 
+    if not isInTable(Config.AntiFX.fxWhitelist, eventName) then
+        fxCounts[sender] = (fxCounts[sender] or 0) + 1
 
-                if fxCounts[sender] > Config.AntiFX.limit then
-                    CancelEvent()
-                    TriggerEvent('zaps:kick', Config.AntiFX.Message)
-                    TriggerEvent('logKickToDiscordEvent', Config.AntiFX.Message)
-                end
-            end
+        if fxCounts[sender] > Config.AntiFX.limit then
+            CancelEvent()
+TriggerEvent('zaps:kick', Config.AntiFX.Message)
+TriggerEvent('logKickToDiscordEvent', Config.AntiFX.Message)
         end
-    end)
+    end
 end
-
+end)
+end
 local entityCreationCounts = {}
-
+local entitiesSpawned = {}
 if Config.AntiEntityTamper.Enabled then 
     AddEventHandler('entityCreating', function(entity)
         local _src = NetworkGetEntityOwner(entity)
-
-        if IsAceAllowed(source, Config.AntiEntityTamper.ACEPermission) then 
-            if not entityCreationCounts[_src] then
-                entityCreationCounts[_src] = { count = 0, timer = nil }
-            end
-
-            local data = Config.AntiEntityTamper.EntityCreation_Limit[_src]
-            data.count = data.count + 1
-
-            if data.count > ENTITY_CREATION_LIMIT then
+        local _entitytype = GetEntityPopulationType(entity)
+        local model = GetEntityModel(entity)
+        if not IsPlayerAceAllowed(_src, Config.AntiEntityTamper.ACEPermission) then 
+            if _src == nil then
                 CancelEvent()
-                TriggerEvent('zaps:kick', Config.AntiEntityTamper.Message)
-                TriggerEvent('logKickToDiscordEvent', Config.AntiEntityTamper.Message)
+                return
             end
-
-            if not data.timer then
-                data.timer = SetTimer(function()
-                    data.count = 0
-                    data.timer = nil
-                end, TIME_WINDOW, 1)
+            if _entitytype == 0 then
+                if not inTable(Config.AntiEntityTamper.WhitelistedModels, model) then
+                    if model ~= 0 and model ~= 225514697 then
+                    TriggerEvent('logKickToDiscordEvent', _src, Config.AntiEntityTamper.Message)
+                        DropPlayer(_src, "🐧[VulcanAC] Kicked Reason: " .. Config.AntiEntityTamper.Message)
+                        CancelEvent()
+                        entitiesSpawned[_src] = (entitiesSpawned[_src] or 0) + 1
+                        if entitiesSpawned[_src] > 10 then
+                            TriggerEvent('logKickToDiscordEvent', _src, Config.AntiEntityTamper.Message)
+                            DropPlayer(_src, "🐧[VulcanAC] Kicked Reason: " .. Config.AntiEntityTamper.Message)
+                            CancelEvent()
+                            return
+                        end
+                    end
+                end
             end
         end
     end)
@@ -81,7 +81,7 @@ if Config.BlacklistedEvents.Enabled then
     for _, event in pairs(Config.BlacklistedEvents.Events) do
         if event.type == 'server' then
             AddEventHandler(event.Name, function()
-                if not hasBypassPermission(source, Config.BlacklistedEvents.ACEPermission) then
+                if not IsPlayerAceAllowed(source, Config.BlacklistedEvents.ACEPermission) then
                     CancelEvent()
                     TriggerEvent('zaps:kick', Config.BlacklistedEvents.Message)
                     TriggerEvent('logKickToDiscordEvent', Config.BlacklistedEvents.Message)
@@ -90,7 +90,6 @@ if Config.BlacklistedEvents.Enabled then
         end
     end
 end
-
 local explosionsSpawned = {}
 AddEventHandler("explosionEvent", function(sender, exp)
     if not Config.ExplosionEvent.Enabled or exp.damageScale == 0.0 then
@@ -102,34 +101,31 @@ AddEventHandler("explosionEvent", function(sender, exp)
 end
     if isBlacklisted(exp.explosionType) then
         CancelEvent()
-        TriggerEvent('logKickToDiscordEvent', GetPlayerName(sender), "Blocked Explosion Type: "..exp.explosionType)
+        TriggerEvent('logKickToDiscordEvent', sender, "Blocked Explosion Type: "..exp.explosionType)
         DropPlayer(sender, "🐧[VulcanAC] Kicked Reason: " .. Config.ExplosionEvent.Message)
         return
     end
     explosionsSpawned[sender] = (explosionsSpawned[sender] or 0) + 1
     if explosionsSpawned[sender] > 5 then
-        TriggerEvent('logKickToDiscordEvent', GetPlayerName(sender), "Mass explosions detected: "..explosionsSpawned[sender])
+        TriggerEvent('logKickToDiscordEvent', sender, "Mass explosions detected: "..explosionsSpawned[sender])
         DropPlayer(sender, "🐧[VulcanAC] Kicked Reason: " .. Config.ExplosionEvent.Message)
         CancelEvent()
         return
     end
     CancelEvent()
 end)
-
-
-AddEventHandler("chatMessage", function(source, name, message)
+    AddEventHandler("chatMessage", function(source, name, message)
     if Config.BlacklistedWords.Enabled then
         for _, word in pairs(Config.BlacklistedWords.Words) do
             if string.match(message:lower(), "%f[%a]"..word:lower().."%f[%A]") then
                 CancelEvent()
+                TriggerEvent('logKickToDiscordEvent', source, "Tried to say a blacklisted word: " .. word, "Full Message", message)
                 TriggerEvent('zaps:kick', "Tried to say a blacklisted word: " .. word, "Full Message", message)
                 TriggerClientEvent('chat:clear', -1)
-                TriggerEvent('logKickToDiscordEvent', GetPlayerName(source), "Tried to say a blacklisted word: " .. word, "Full Message", message)
                 return
             end
         end
     end
-
     if Config.AntiFakeChatMessages.Enabled then
         local _playername = GetPlayerName(source)
         if name ~= _playername then
@@ -139,7 +135,6 @@ AddEventHandler("chatMessage", function(source, name, message)
         end
     end
 end)
-
 if Config.SuperJump.Enabled then
     CreateThread(function()
         while true do
@@ -147,12 +142,11 @@ if Config.SuperJump.Enabled then
             local players = GetPlayers()
             for i = 1, #players do
                 local playerId = players[i]
-                local playerPed = GetPlayerPed(playerId) 
                 if IsPlayerUsingSuperJump(playerId) then
                     if Config.Debug then 
                         print('Super jump detected for player: ' .. playerId)
                     end
-                    TriggerEvent('logKickToDiscordEvent', GetPlayerName(playerId), Config.SuperJump.Message)
+                    TriggerEvent('logKickToDiscordEvent', playerId, Config.SuperJump.Message)
                     DropPlayer(playerId, Config.SuperJump.Message)
                     break
                 end
@@ -160,23 +154,21 @@ if Config.SuperJump.Enabled then
         end
     end)
 end
-
 if GetResourceState('es_extended') ~= 'missing' then
     ESX = exports["es_extended"]:getSharedObject()
+    local UseEsx = nil
     UseEsx = true
 end
-
 if GetResourceState('qb-core') ~= 'missing' then
+	local UseQB = nil
 	QBCore = exports['qb-core']:GetCoreObject()
-    UseQB = true
+    	UseQB = true
 end
 
 AddEventHandler("weaponDamageEvent", function(sender, data)
     if UseEsx and Config.Antitaze.Enabled then
-        local _src = sender
-            
+        local _src = sender   
         local xPlayer = ESX.GetPlayerFromId(_src)
-            
         if xPlayer ~= nil and not Config.Antitaze.WhitelistedJobs[xPlayer.job.name] and data.weaponType == 911657153 or data.weaponType == joaat("WEAPON_STUNGUN") then
             TriggerEvent('logKickToDiscordEvent', GetPlayerName(_src), Config.Antitaze.Message)
             DropPlayer(_src, Config.Antitaze.KickMessage)
