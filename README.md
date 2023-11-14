@@ -39,6 +39,8 @@ We are committed to maintaining and improving Vulcan-AC to ensure a secure and f
 Leave a Follow or ``⭐️`` to show your support!
 
 Use code ``zapsdevelopment`` for 30% off 
+
 https://hosting.northhost.fr/
+
 North Host Discord: https://discord.gg/jPtdn7Rxkt 
 
