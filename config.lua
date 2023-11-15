@@ -81,13 +81,6 @@ Config = {
         ACEPermission = "admin.blacklistedCommands.bypass"
     },
 
-    AntiGodMode = {
-        Enabled = true,
-        Message = "God Mode is not allowed",
-        Label = "God Mode Prohibition",
-        ACEPermission = "admin.antiGodMode.bypass"
-    },
-
     AntiNoClip = {
         Enabled = true,
         Message = "NoClip is not allowed",
