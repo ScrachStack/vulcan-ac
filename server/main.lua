@@ -169,7 +169,7 @@ AddEventHandler("weaponDamageEvent", function(sender, data)
     if UseEsx and Config.Antitaze.Enabled then
         local _src = sender   
         local xPlayer = ESX.GetPlayerFromId(_src)
-        if xPlayer ~= nil and not Config.Antitaze.WhitelistedJobs[xPlayer.job.name] and data.weaponType == 911657153 or data.weaponType == joaat("WEAPON_STUNGUN") then
+        if xPlayer ~= nil and not Config.Antitaze.WhitelistedJobs[xPlayer.job.name] and data.weaponType == 911657153 or data.weaponType == joaat(`WEAPON_STUNGUN`) then
             TriggerEvent('logKickToDiscordEvent', GetPlayerName(_src), Config.Antitaze.Message)
             DropPlayer(_src, Config.Antitaze.KickMessage)
             CancelEvent()
@@ -181,7 +181,7 @@ AddEventHandler("weaponDamageEvent", function(sender, data)
     if UseQB and Config.Antitaze.Enabled then
         local _src = sender
         local xPlayer = QBCore.Functions.GetPlayer(_src)
-        if xPlayer ~= nil and not Config.Antitaze.WhitelistedJobs[xPlayer.job.name] and data.weaponType == 911657153 or data.weaponType == joaat("WEAPON_STUNGUN") then
+        if xPlayer ~= nil and not Config.Antitaze.WhitelistedJobs[xPlayer.job.name] and data.weaponType == 911657153 or data.weaponType == joaat(`WEAPON_STUNGUN`) then
             TriggerEvent('logKickToDiscordEvent', GetPlayerName(_src), Config.Antitaze.Message)
             DropPlayer(_src, Config.Antitaze.KickMessage)
             CancelEvent()
