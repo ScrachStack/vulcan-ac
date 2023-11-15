@@ -1,5 +1,4 @@
 -- join https://discord.gg/cfxdev for support
-local Loaded = false
 if Config.BlacklistedMenuTextures.Enabled then
     CreateThread(function()
         while true do
