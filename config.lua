@@ -160,5 +160,13 @@ Config = {
         LengthThreshold = 15, 
         Message = "Super jump detected",  
         ACEPermission = "admin.explosions.bypass",
+    },
+
+    ModdedMoney = { -- QB/ESX
+        Enabled = true,
+        MaxAmount = 15000000, -- If they go over this account they will be flagged
+        KickAfterGoneOverAmount = true, -- [true/false] if false will just send discord log if setup correctly
+        Message = "Modded Money detected",  
+        ACEPermission = "admin.money.bypass",
     }
 }
