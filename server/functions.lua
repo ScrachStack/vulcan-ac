@@ -3,7 +3,7 @@ AddEventHandler('zaps:kick', function(reason)
     DropPlayer(source, "🐧[VulcanAC] Kicked Reason: ".. reason) 
 end)
 if Config.Moderation.Commands['kick'].Enabled then 
-RegisterCommand('kick', function(source, args, rawCommand)
+RegisterCommand('vac:kick', function(source, args, rawCommand)
         local targetPlayerId = tonumber(args[1])
         local reason = table.concat(args, ' ', 2) 
         if not targetPlayerId or not reason then
