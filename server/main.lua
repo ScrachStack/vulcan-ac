@@ -143,6 +143,7 @@ if Config.SuperJump.Enabled then
             for i = 1, #players do
                 local playerId = players[i]
                 if IsPlayerUsingSuperJump(playerId) then
+		if IsPlayerAceAllowed(playerId, Config.SuperJump.ACEPermission) then 
                     if Config.Debug then 
                         print('Super jump detected for player: ' .. playerId)
                     end
@@ -153,6 +154,7 @@ if Config.SuperJump.Enabled then
             end
         end
     end)
+end
 end
 if GetResourceState('es_extended') ~= 'missing' then
     ESX = exports["es_extended"]:getSharedObject()
