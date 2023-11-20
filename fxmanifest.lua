@@ -3,7 +3,7 @@ game 'gta5'
 lua54 'yes'
 author 'Zaps6000'
 description 'Vulcan-AC'
-version '1.5.6'
+version '1.5.7'
 
 client_scripts {
     'client/*',
