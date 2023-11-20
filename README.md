@@ -38,9 +38,13 @@ We are committed to maintaining and improving Vulcan-AC to ensure a secure and f
 
 Leave a Follow or ``⭐️`` to show your support!
 
+# Please take a moment to explore our affiliate hosting service.
 Use code ``zapsdevelopment`` for 30% off 
 
 https://hosting.northhost.fr/
 
 North Host Discord: https://discord.gg/jPtdn7Rxkt 
 
+--- 
+# Paid Advertisement (We are not Affiliated or Partnered) 
+For "better" **paid anticheat** check out **https://store.fiveguard.ac/**.
