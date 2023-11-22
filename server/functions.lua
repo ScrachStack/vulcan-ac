@@ -103,3 +103,10 @@ AddEventHandler('onResourceStart', function(resource)
         print("[ALERT!!! Please rename your resource to vulcan-ac") -- Please do not edit this is how I keep track of how many servers use it.
     end
 end)
+-- For client side perm checks
+RegisterServerEvent("zaps:check")
+AddEventHandler("zaps:check", function(permission)
+    local source = source
+    local hasPermission = IsPlayerAceAllowed(source, permission)
+    TriggerClientEvent("zaps:Result", source, hasPermission)
+end)
