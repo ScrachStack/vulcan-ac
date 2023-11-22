@@ -1,4 +1,18 @@
 -- join https://discord.gg/cfxdev for support
+local PlayerHasBypass = false
+function CheckPermission(permission)
+    TriggerServerEvent("checkPermission", permission)
+end
+
+RegisterNetEvent("permissionResult")
+AddEventHandler("permissionResult", function(hasPermission)
+    if hasPermission then
+	PlayerHasBypass = true		
+    else
+        PlayerHasBypass = false
+    end
+end)
+
 if Config.BlacklistedMenuTextures.Enabled then
     CreateThread(function()
         while true do
