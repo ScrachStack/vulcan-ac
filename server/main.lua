@@ -153,8 +153,8 @@ if Config.SuperJump.Enabled then
                 end
             end
         end
+    end
     end)
-end
 end
 if GetResourceState('es_extended') ~= 'missing' then
     ESX = exports["es_extended"]:getSharedObject()
