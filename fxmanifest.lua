@@ -6,7 +6,7 @@ rdr3_warning 'I acknowledge that this is a prerelease build of RedM, and I am aw
 lua54 'yes'
 author 'Zaps6000'
 description 'Vulcan-AC'
-version '1.5.8'
+version '1.5.9'
 
 client_scripts {
     'client/*',
