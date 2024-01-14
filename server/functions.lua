@@ -97,10 +97,9 @@ function zapsupdatee()
 end
 
 AddEventHandler('onResourceStart', function(resource)
-    if resource == 'vulcan-ac' and resource == GetCurrentResourceName() then
+    if resource == GetCurrentResourceName() then
         zapsupdatee()
-    else 
-        print("[ALERT!!! Please rename your resource to vulcan-ac") -- Please do not edit this is how I keep track of how many servers use it.
+            print(" 🐧 [Vulcan AC] Make sure to run vac:install from the console to setup event tampering")
     end
 end)
 -- For client side perm checks
