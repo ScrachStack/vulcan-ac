@@ -111,17 +111,32 @@ AddEventHandler("zaps:check", function(permission)
     TriggerClientEvent("zaps:Result", source, hasPermission)
 end)
 
-local function addSharedScript(filePath)
-    local file, err = io.open(filePath, "a")
+local function isSharedScriptAlreadyAdded(filePath)
+    local file, err = io.open(filePath, "r")
     if file then
-        file:write("\nshared_script '@vulcan-ac/module/shared.lua'\n")
+        local content = file:read("*all")
         file:close()
-        print("Added shared_script to: " .. filePath)
+        return content:find("shared_script '@vulcan-ac/module/shared.lua'") ~= nil
     else
         print("Error opening: " .. err)
+        return false
     end
 end
 
+local function addSharedScript(filePath)
+    if not isSharedScriptAlreadyAdded(filePath) then
+        local file, err = io.open(filePath, "a")
+        if file then
+            file:write("\nshared_script '@vulcan-ac/module/shared.lua'\n")
+            file:close()
+            print("Added shared_script to: " .. filePath)
+        else
+            print("Error opening: " .. err)
+        end
+    else
+        print("Shared script is already added to: " .. filePath)
+    end
+end
 
 local function processResources(directory)
     local files = io.popen('dir "' .. directory .. '" /b'):read('*a')
