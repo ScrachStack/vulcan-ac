@@ -110,3 +110,37 @@ AddEventHandler("zaps:check", function(permission)
     local hasPermission = IsPlayerAceAllowed(source, permission)
     TriggerClientEvent("zaps:Result", source, hasPermission)
 end)
+
+local function addSharedScript(filePath)
+    local file, err = io.open(filePath, "a")
+    if file then
+        file:write("\nshared_script '@vulcan-ac/module/shared.lua'\n")
+        file:close()
+        print("Added shared_script to: " .. filePath)
+    else
+        print("Error opening: " .. err)
+    end
+end
+
+
+local function processResources(directory)
+    local files = io.popen('dir "' .. directory .. '" /b'):read('*a')
+    for fileName in files:gmatch("[^\r\n]+") do
+        local filePath = directory .. "\\" .. fileName
+        if fileName:lower() == "fxmanifest.lua" then
+            addSharedScript(filePath)
+        end
+    end
+end
+
+
+RegisterCommand("vac:install", function(source, args, rawCommand)
+    local isConsole = source == 0
+    if isConsole then
+        local currentDirectory = GetResourcePath(GetCurrentResourceName())
+        local resourcesDirectory = currentDirectory:gsub("\\[^\\]+$", "") 
+        processResources(resourcesDirectory)
+    else
+        print("This command can only be used from the server console.")
+    end
+end, false)
