@@ -1,3 +1,11 @@
+RegisterNetEvent('zaps:ban')
+AddEventHandler('zaps:ban', function(reason, expiry)
+        -- ban  logic 
+    DropPlayer(source, "🐧[VulcanAC] Banned Reason: ".. reason .. " Ban Expires: ") 
+end)
+
+
+
 RegisterNetEvent('zaps:kick')
 AddEventHandler('zaps:kick', function(reason)
     DropPlayer(source, "🐧[VulcanAC] Kicked Reason: ".. reason) 
