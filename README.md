@@ -2,6 +2,7 @@
 
 ![Vulcan-AC Logo](https://github.com/ScrachStack/vulcan-ac/assets/122732007/df9c48ff-c6b7-4d0a-90ca-f7f7ab6719f1)
 [![OneSync Requirement](https://img.shields.io/badge/OneSync-Required-blue?style=for-the-badge&logo=fivem&logoColor=white)](https://docs.fivem.net/docs/scripting-reference/onesync/)
+[![Discord](https://img.shields.io/badge/Discord-Support-5865F2?style=flat&logo=discord&logoColor=white)](https://discord.gg/tgrU8wgeHx) 
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/T6T01APGOO)
 ## Usage
@@ -28,7 +29,7 @@ Vulcan-AC is open-source software released under the [GNU General Public License
 ## Support
 
 If you encounter any issues or have questions about Vulcan-AC, please [open an issue](https://github.com/ScrachStack/vulcan/issues) on the GitHub repository.
-Discord: https://discord.gg/Uwg95JfwYT (Faster Support Times)
+Discord: https://discord.gg/tgrU8wgeHx (Faster Support Times)
 We are committed to maintaining and improving Vulcan-AC to ensure a secure and fair gaming environment for all FiveM server administrators and players.
 
 ## View Counter
