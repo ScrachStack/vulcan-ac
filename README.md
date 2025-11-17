@@ -28,7 +28,7 @@ Vulcan-AC is open-source software released under the [GNU General Public License
 ## Support
 
 If you encounter any issues or have questions about Vulcan-AC, please [open an issue](https://github.com/ScrachStack/vulcan/issues) on the GitHub repository.
-Discord: https://discord.gg/fivemdev (Faster Support Times)
+Discord: https://syncstudio.org/discord (Faster Support Times)
 We are committed to maintaining and improving Vulcan-AC to ensure a secure and fair gaming environment for all FiveM server administrators and players.
 
 ## View Counter
